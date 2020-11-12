@@ -17,10 +17,32 @@
 
 DROP TABLE IF EXISTS `User`;
 CREATE TABLE IF NOT EXISTS `User` (
+  `Nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Apellidos` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `F. Nacimiento` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Tags` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`Email`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `Anuncios`;
+CREATE TABLE IF NOT EXISTS `Anuncios` (  
   `Id` int(11) NOT NULL,
-  `Last` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `First` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Age` int(11) DEFAULT NULL,
+  `Titulo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Propietario` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Destinatarios` int(11) DEFAULT NULL,
+  `Cuerpo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Fase` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `F. Comienzo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `F. Fin` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `Tags`;
+CREATE TABLE IF NOT EXISTS `Tags` (
+  `Id` int(11) NOT NULL
+  `Tipo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
