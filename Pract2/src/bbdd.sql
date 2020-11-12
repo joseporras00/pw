@@ -6,13 +6,13 @@
 -- Versión del servidor: 5.1.73
 -- Versión de PHP: 5.3.3
 -- 
--- Base de datos: `in1rosaj`
+-- Base de datos: `i82poroj`
 -- 
 
 -- --------------------------------------------------------
 
 -- 
--- Estructura de tabla para la tabla `User`
+-- Estructura de tablas
 -- 
 
 DROP TABLE IF EXISTS `Usuarios`;
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `Tags` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- 
--- Volcar la base de datos para la tabla `User`
+-- Volcar la base de datos para la tabla `Tags`
 -- 
 
 INSERT INTO `Tags` VALUES (1, 'Actualidad');
