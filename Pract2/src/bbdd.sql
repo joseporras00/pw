@@ -15,8 +15,8 @@
 -- Estructura de tabla para la tabla `User`
 -- 
 
-DROP TABLE IF EXISTS `User`;
-CREATE TABLE IF NOT EXISTS `User` (
+DROP TABLE IF EXISTS `Usuarios`;
+CREATE TABLE IF NOT EXISTS `Usuarios` (
   `Nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Apellidos` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -50,9 +50,11 @@ CREATE TABLE IF NOT EXISTS `Tags` (
 -- Volcar la base de datos para la tabla `User`
 -- 
 
-INSERT INTO `User` VALUES (1, 'Angola', 'Juan', 15);
-INSERT INTO `User` VALUES (2, 'Becerra', 'Francisco', 23);
-INSERT INTO `User` VALUES (3, 'Carmona', 'José', 43);
-INSERT INTO `User` VALUES (4, 'Davide', 'Giovanni', 31);
-INSERT INTO `User` VALUES (5, 'Esteban', 'Pedro', 24);
-INSERT INTO `User` VALUES (6, 'Ferrero', 'Manuel', 56);
+INSERT INTO `Tags` VALUES (1, 'Actualidad');
+INSERT INTO `Tags` VALUES (2, 'Alimentacion');
+INSERT INTO `Tags` VALUES (3, 'Deportes');
+INSERT INTO `Tags` VALUES (4, 'Diversion');
+INSERT INTO `Tags` VALUES (5, 'Moda');
+INSERT INTO `Tags` VALUES (6, 'Musica');
+INSERT INTO `Tags` VALUES (7, 'Tecnologias');
+
