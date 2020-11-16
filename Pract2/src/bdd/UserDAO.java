@@ -17,7 +17,7 @@ public class UserDAO {
 	  Class.forName("com.mysql.jdbc.Driver");
 	  // Introducir correctamente el nombre y datos de conexión - Idealmente, estos datos se 
 	  // indican en un fichero de propiedades
-	  con= DriverManager.getConnection("jdbc:mysql://oraclepr.uco.es:3306/basedatos","usuario","password");
+	  con= DriverManager.getConnection("jdbc:mysql://oraclepr.uco.es:3306/basedatos",conf.usuario,conf.pass);
 	// Importante capturar 
 	} catch(Exception e) {
 	  System.out.println(e);
@@ -34,7 +34,7 @@ public class UserDAO {
 		Connection con=getConnection();
 		// PreparedStament será más rápido (si es uso recurrente) y permite invocación a parámetros
 		// Lo habitual es que las consultas y sentencias SQL estén en un fichero de propiedades aparte, no en código
-		PreparedStatement ps=con.prepareStatement("insert into Usuarios (nombre,apellidos,email,fecha,tags) values(?,?,?,?,?)");
+		PreparedStatement ps=con.prepareStatement(sql.Usave);
 		// El orden de los parámetros debe coincidir con las '?' del código SQL
 		ps.setString(1,nombre);
 		ps.setString(2,apellidos);
@@ -54,7 +54,7 @@ public static int update(String nombre, String apellidos,String email,String fec
 	int status=0;
 	try{
 		Connection con=getConnection();
-		PreparedStatement ps=con.prepareStatement("update Usuarios set nombre=?,apellidos=?,fecha=?,tags=? where email=?");
+		PreparedStatement ps=con.prepareStatement(sql.Uupdate);
 		ps.setString(1,nombre);
 		ps.setString(2,apellidos);
 		ps.setString(3,fecha);
@@ -74,7 +74,7 @@ public static Hashtable<String,String> queryByEmail (String email) {
 		Connection con=getConnection();
 		// En consultas, se hace uso de un Statement 
 		stmt = con.createStatement();
-	    ResultSet rs = stmt.executeQuery("select nombre, apellidos, fecha, tags from Usuarios where email = " + email);
+	    ResultSet rs = stmt.executeQuery(sql.Uselect);
 	    while (rs.next()) {
 	    	String nombre = rs.getString("nombre");
 	        String apellidos = rs.getString("apellidos");
@@ -102,7 +102,7 @@ public static int delete(String email){
 	int status=0;
 	try{
 		Connection con=getConnection();
-		PreparedStatement ps=con.prepareStatement("delete from Usuarios where email=?");
+		PreparedStatement ps=con.prepareStatement(sql.Udelete);
 		ps.setString(1,email);
 		status=ps.executeUpdate();
 	}catch(Exception e){System.out.println(e);}
