@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
   `Email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `F. Nacimiento` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Tags` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`Email`)
+  PRIMARY KEY (`Email`),
+  FOREIGN KEY (Tags) REFERENCES Tags (Id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `Anuncios`;
@@ -36,7 +37,10 @@ CREATE TABLE IF NOT EXISTS `Anuncios` (
   `Tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `F. Comienzo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `F. Fin` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`Id`)
+  PRIMARY KEY (`Id`),
+  FOREIGN KEY (Propietario) REFERENCES Usuarios (Email),
+  FOREIGN KEY (Destinatarios) REFERENCES Usuarios (Email),
+  FOREIGN KEY (Tag) REFERENCES Tags (Id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `Tags`;
@@ -57,4 +61,7 @@ INSERT INTO `Tags` VALUES (4, 'Diversion');
 INSERT INTO `Tags` VALUES (5, 'Moda');
 INSERT INTO `Tags` VALUES (6, 'Musica');
 INSERT INTO `Tags` VALUES (7, 'Tecnologias');
+
+INSERT INTO `Usuarios` VALUES ('Jose Manuel','Porras Rosales','i82poroj', '09/04/2000','4 1');
+INSERT INTO `Usuarios` VALUES ('Juan,Valverde Santiago','i82vasaj', '12/05/2000','6 7');
 
