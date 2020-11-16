@@ -63,5 +63,5 @@ INSERT INTO `Tags` VALUES (6, 'Musica');
 INSERT INTO `Tags` VALUES (7, 'Tecnologias');
 
 INSERT INTO `Usuarios` VALUES ('Jose Manuel','Porras Rosales','i82poroj', '09/04/2000','4 1');
-INSERT INTO `Usuarios` VALUES ('Juan,Valverde Santiago','i82vasaj', '12/05/2000','6 7');
+INSERT INTO `Usuarios` VALUES ('Juan','Valverde Santiago','i82vasaj', '12/05/2000','6 7');
 
