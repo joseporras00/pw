@@ -11,10 +11,11 @@ public class GestorContactos {
 	
 	private Ficheros fichero = new Ficheros();
 	Scanner s = new Scanner(System.in);
+	UserDAO uDAO;
 	
 	public GestorContactos() {
-		matriz = new String[25][5]; //El valor de filas de esta matriz es el numero máx de contactos que admite el programa
-		x = fichero.leerFichero(matriz); //Con este se inicializa la x y la matriz
+		//matriz = new String[25][5]; //El valor de filas de esta matriz es el numero mÃ¡x de contactos que admite el programa
+		//x = fichero.leerFichero(matriz); //Con este se inicializa la x y la matriz
 	}
 		
 	public static GestorContactos getGestorContactos() {
@@ -24,9 +25,11 @@ public class GestorContactos {
 		return instancia;
 	}
 		
-	// Operaciones públicas de la clase GestorContactos
+	// Operaciones pÃºblicas de la clase GestorContactos
 	public boolean comprobarUsuario(String email)
 	{
+		
+		//uDAO.queryById(email)
 		for(int i=0;i<x;i++) {
 			if(matriz[i][2].equals(email))
 				return true;
@@ -40,6 +43,8 @@ public class GestorContactos {
 		
 		int x=fichero.leerFichero(matriz);
 		String output = null;
+		
+		//uDAO.queryByEmail(email); esto imprime todo el usuario
 		
 		for(int i=0; i<x;i++)
 		{	
