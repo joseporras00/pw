@@ -39,7 +39,7 @@ public class AnuncioDAO {
 	  Class.forName("com.mysql.jdbc.Driver");
 	  // Introducir correctamente el nombre y datos de conexión - Idealmente, estos datos se 
 	  // indican en un fichero de propiedades
-	  con= DriverManager.getConnection("jdbc:mysql://oraclepr.uco.es:3306/basedatos",Main.usuario,Main.pass);
+	  con= DriverManager.getConnection("jdbc:mysql://" + Main.server + ":" + Main.puerto + "/" + Main.usuario,Main.usuario,Main.pass);
 	// Importante capturar 
 	} catch(Exception e) {
 	  System.out.println(e);
