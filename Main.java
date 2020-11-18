@@ -28,6 +28,8 @@ import java.util.Scanner;
 		
 		usuario = prop.getProperty("conf.usuario");
 		pass = prop.getProperty("conf.pass");
+		server = prop.getProperty("conf.servidor");
+		puerto = prop.getProperty("conf.puerto");
 		TablonAnunciosCreator t = new TablonAnunciosCreator();
 		Scanner s = new Scanner(System.in);
 		
@@ -93,7 +95,7 @@ import java.util.Scanner;
 					t.buscarDestinatario();
 					break;
 				default:
-					System.out.print("\nError, debe elegir un número entre 1 y 4\n");
+					System.out.print("\nError, debe elegir un nÃºmero entre 1 y 4\n");
 					break;
 			}
 			
@@ -103,15 +105,15 @@ import java.util.Scanner;
 			if(Gestor.comprobarUsuario(email))
 				t.buscarDestinatario(email);
 			else
-				System.out.print("\nNo estás actualmente logueado, inicia sesion\n");
+				System.out.print("\nNo estÃ¡s actualmente logueado, inicia sesion\n");
 			break;
 			
 		case 7:
-			System.out.print("\nPrograma finalizado con éxito");
+			System.out.print("\nPrograma finalizado con Ã©xito");
 			break;
 		
 		default:
-			System.out.print("\nError, debe elegir un número entre 1 y 6\n");
+			System.out.print("\nError, debe elegir un nÃºmero entre 1 y 6\n");
 			break;
 		}
 	}while(opcion != 7); 
