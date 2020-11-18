@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="es.uco.pw.business.user.User,es.uco.pw.data.dao.UserDAO" %>
-<jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
+<jsp:useBean  id="userBean" scope="session" class="es.uco.pw.display.javabean.userBean"></jsp:useBean>
 <%
 /* Posibles flujos:
 	1) customerBean está logado (!= null && != "") -> Se redirige al index.jsp
@@ -13,8 +13,8 @@
 String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
 //Caso 2
-if (customerBean == null || customerBean.getEmailUser().equals("")) {
-	String nameUser = request.getParameter("name");
+if (userBean == null || userBean.getEmailUser().equals("")) {
+	String nameUser = request.getParameter("nombre");
 	String emailUser = request.getParameter("email");
 
 	//Caso 2.a: Hay parámetros -> procede de la VISTA
@@ -28,7 +28,7 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 		if (user != null && user.getEmail().equalsIgnoreCase(emailUser)) {
 			// Usuario válido		
 %>
-<jsp:setProperty property="emailUser" value="<%=emailUser%>" name="customerBean"/>
+<jsp:setProperty property="emailUser" value="<%=emailUser%>" name="userBean"/>
 <%
 		} else {
 			// Usuario no válido
