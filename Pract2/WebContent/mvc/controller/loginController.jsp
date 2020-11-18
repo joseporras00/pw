@@ -14,14 +14,14 @@ String nextPage = "../../index.jsp";
 String mensajeNextPage = "";
 //Caso 2
 if (userBean == null || userBean.getEmailUser().equals("")) {
-	String nameUser = request.getParameter("nombre");
 	String emailUser = request.getParameter("email");
+	String passwordlUser = request.getParameter("password");
 
 	//Caso 2.a: Hay parámetros -> procede de la VISTA
 	if (nameUser != null) {
 		//Se accede a bases de datos para obtener el usuario
 		UserDAO userDAO = new UserDAO();
-		User user = userDAO.getUserByName(nameUser);
+		User user = userDAO.queryByEmail(emailUser);
 
 		//Se realizan todas las comprobaciones necesarias del dominio
 		//Aquí sólo comprobamos que exista el usuario
