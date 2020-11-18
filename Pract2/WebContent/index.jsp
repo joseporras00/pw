@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Prueba de MVC</title>
+<title>Bienvenido</title>
 </head>
 <body>
 <% 
