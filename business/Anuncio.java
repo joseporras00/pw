@@ -46,10 +46,10 @@ public class Anuncio {
 
 	//Inicializar
 	public Anuncio() {
-		destinatario= null;
-		tag= null;
-		fecha_comienzo= null;
-		fecha_fin= null;	
+		this.destinatario= null;
+		this.tag= null;
+		this.fecha_comienzo= null;
+		this.fecha_fin= null;	
 	}
 	
 	public void AnuncioGeneral(int id)
