@@ -1,4 +1,4 @@
-// En la pr·ctica, la clase deberÌa ir en <es.uco.pw.data.dao>
+// En la pr√°ctica, la clase deber√≠a ir en <es.uco.pw.data.dao>
 package ejercicio1;
 
 import java.io.FileInputStream;
@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-// SerÌa recomendable tener una clase DAO que guardara los mÈtodos comunes (p.ej. getConnection()) y 
+// Ser√≠a recomendable tener una clase DAO que guardara los m√©todos comunes (p.ej. getConnection()) y 
 // de la que heredase esta clase y el resto de DAOs
 public class AnuncioDAO {
 	
 	
-	private static String Asave, Aupdate, Aselect, Adelete;
+	private static String Asave, Aupdate,Acount, Aselect, Adelete;
 	AnuncioDAO()
 	{
 		Properties sql = new Properties();
@@ -29,15 +29,15 @@ public class AnuncioDAO {
 	}
 	
 	
-  // MÈtodo que establece la conexiÛn con la base de datos
-  // NOTA: Los mÈtodos est·ticos no son obligatorios (ni siquiera los m·s apropiados):
-  // Se ha escrito de esta manera ˙nicamente para facilitar la ejecuciÛn
+  // M√©todo que establece la conexi√≥n con la base de datos
+  // NOTA: Los m√©todos est√°ticos no son obligatorios (ni siquiera los m√°s apropiados):
+  // Se ha escrito de esta manera √∫nicamente para facilitar la ejecuci√≥n
   public static Connection getConnection(){
 	// En primer lugar, obtenemos una instancia del driver de MySQL
 	Connection con=null;
 	try {
 	  Class.forName("com.mysql.jdbc.Driver");
-	  // Introducir correctamente el nombre y datos de conexiÛn - Idealmente, estos datos se 
+	  // Introducir correctamente el nombre y datos de conexi√≥n - Idealmente, estos datos se 
 	  // indican en un fichero de propiedades
 	  con= DriverManager.getConnection("jdbc:mysql://oraclepr.uco.es:3306/basedatos",Main.usuario,Main.pass);
 	// Importante capturar 
@@ -47,17 +47,17 @@ public class AnuncioDAO {
 	return con;
   }
   
-  // MÈtodo para insertar una fila
-  // En ning˙n caso es recomendable el paso por par·metro de los valores individuales
+  // M√©todo para insertar una fila
+  // En ning√∫n caso es recomendable el paso por par√°metro de los valores individuales
   // Se recomienda utilizar el UserBean o una clase envoltorio User que tenga estas propiedades
   public static int save(Anuncio anuncio){
 	int status=0;
 	try{
 		Connection con=getConnection();
-		// PreparedStament ser· m·s r·pido (si es uso recurrente) y permite invocaciÛn a par·metros
-		// Lo habitual es que las consultas y sentencias SQL estÈn en un fichero de propiedades aparte, no en cÛdigo
+		// PreparedStament ser√° m√°s r√°pido (si es uso recurrente) y permite invocaci√≥n a par√°metros
+		// Lo habitual es que las consultas y sentencias SQL est√©n en un fichero de propiedades aparte, no en c√≥digo
 		PreparedStatement ps=con.prepareStatement(Asave);
-		// El orden de los par·metros debe coincidir con las '?' del cÛdigo SQL
+		// El orden de los par√°metros debe coincidir con las '?' del c√≥digo SQL
 		ps.setInt(1,anuncio.getId());
 		ps.setString(2,anuncio.getTitulo());
 		ps.setString(3,anuncio.getPropietario());
@@ -68,14 +68,14 @@ public class AnuncioDAO {
     	ps.setString(8,anuncio.getFechaComienzo());
     	ps.setString(9,anuncio.getFechaFin());
 		status = ps.executeUpdate();
-	// Importante capturar las excepciones. Si nuestra aplicaciones tiene m·s opciones de fallo,
+	// Importante capturar las excepciones. Si nuestra aplicaciones tiene m√°s opciones de fallo,
 	// podemos capturar directamente SQLException
 	}catch(Exception e){System.out.println(e);}
-	// El invocante siempre deberÌa tener informaciÛn del resultado de la sentencia SQL
+	// El invocante siempre deber√≠a tener informaci√≥n del resultado de la sentencia SQL
 	return status;
 }
   
-// MÈtodo para actualizar un usuario
+// M√©todo para actualizar un usuario
 public static int update(Anuncio anuncio){
 	int status=0;
 	try{
@@ -90,12 +90,22 @@ public static int update(Anuncio anuncio){
     	ps.setString(7,anuncio.getFechaComienzo());
     	ps.setString(8,anuncio.getFechaFin());
 		ps.setInt(9,anuncio.getId());
-		// En este caso, 'id' va despuÈs, conforme al orden de la sentencia SQL
+		// En este caso, 'id' va despu√©s, conforme al orden de la sentencia SQL
 		
 		status=ps.executeUpdate();
 	}catch(Exception e){System.out.println(e);}
 	return status;
 }
+	
+public static int count(){
+	int cont=0;
+	try{
+		Connection con=getConnection();
+		PreparedStatement ps=con.prepareStatement(Acount);
+		count=ps.executeUpdate();
+	}catch(Exception e){System.out.println(e);}
+	return cont;
+}	
 
 // Para la consulta, se ha tomado una estructura Hash (columna-tabla, valor)
 public static Anuncio queryById (int id) {
@@ -130,7 +140,7 @@ public static Anuncio queryById (int id) {
 	        System.out.println(id + "\n" + titulo +
 	                               "\n" + propietario + "\n" + destinatario + "\n" + cuerpo + "\n" + fase + "\n" + tag + "\n" + fcom + "\n" + ffin + "\n\n");
 	    }
-	    // Se debe tener precauciÛn con cerrar las conexiones, uso de auto-commit, etc.
+	    // Se debe tener precauci√≥n con cerrar las conexiones, uso de auto-commit, etc.
 	    if (stmt != null) 
 	    	stmt.close(); 
 	} catch (Exception e) {
