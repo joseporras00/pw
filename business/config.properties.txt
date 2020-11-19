@@ -1,9 +1,8 @@
 #Servidor
-conf.servidor=http://oraclepr.uco.es/
+conf.servidor=http://oraclepr.uco.es/abd/phpMyAdmin
 
 #puerto
-conf.puerto=8080
-
+conf.puerto=3306
 #usuario
 conf.usuario=i82poroj
 

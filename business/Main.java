@@ -20,7 +20,7 @@ import java.util.Scanner;
 		Properties prop = new Properties();
 		
 		try {
-			FileInputStream is = new FileInputStream("C:\\Users\\usuario\\Desktop\\recuperado\\pw-juanvs00-patch-1\\config.properties.txt");
+			FileInputStream is = new FileInputStream("C:\\Users\\usuario\\Desktop\\recuperado\\pw-juanvs00-patch-2\\config.properties.txt");
 			prop.load(is);
 		} catch(IOException e) {
 			System.out.println(e.toString());
