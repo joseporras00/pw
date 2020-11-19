@@ -13,6 +13,7 @@ public class TablonAnunciosCreator {
 	public int n;
 	private ArrayList<Anuncio> lista = new ArrayList<Anuncio>();
 	private GestorContactos myGestor=GestorContactos.getGestorContactos();
+	private  AnuncioDAO aDAO;
 
 	public TablonAnunciosCreator() {
 		n = 0;
@@ -89,7 +90,8 @@ public class TablonAnunciosCreator {
 		
 		if(error==false)
 		{
-			lista.add(anuncio_aux);
+			aDAO.save(anuncio_aux);
+			//lista.add(anuncio_aux);
 			n++;
 		}
 	}
@@ -164,7 +166,7 @@ public class TablonAnunciosCreator {
 					System.out.print("Error al introducir el tipo de anuncio");
 					err=1;
 				}
-				
+				aDAO.update(lista.get(i));
 			}
 			}
 		if(err==1) {
@@ -184,6 +186,7 @@ public class TablonAnunciosCreator {
 				System.out.print("Indica fecha de finalizacion: ");
 				a.setFechaFin(s.nextLine());
 				encontrado = 1;
+				aDAO.update(a);
 			}
 		}
 		if(encontrado == 0)
@@ -196,7 +199,8 @@ public class TablonAnunciosCreator {
 		int id = si.nextInt();
 		for(Anuncio a: lista) {
 			if((a.getId())==(id)) {
-				a.setFase(Fase.archivado.name());
+				a.setFase(Fase.archivado.name());				
+				aDAO.update(a);
 				System.out.print("\nAnuncio archivado con exito\n");
 				encontrado = 1;
 			}
