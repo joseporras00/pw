@@ -1,0 +1,31 @@
+#save anuncio
+sql.Asave="insert into Anuncios (id,titulo,propietario,destinatarios,cuerpo,fase,tag,fcom,ffin) values(?,?,?,?,?,?,?,?,?)"
+
+#update anuncio
+sql.Aupdate="update Anuncios set titulo=?,propietario=?,destinatarios=?,cuerpo=?,fase=?,tag=?,fcom=?,ffin=? where id=?"
+
+#select anuncios
+sql.AselectI="select Titulo, Propietario, Destinatarios, Cuerpo, Fase, Tag, F. Comienzo, F. Fin from Anuncios where Id = " + id
+sql.AselectF="select Id,Titulo, Propietario, Destinatarios, Cuerpo, Fase, Tag, F. Comienzo from Anuncios where F. Fin = " + ffin
+sql.AselectT="select Titulo, Propietario, Destinatarios, Cuerpo, Tag, Fase, F. Comienzo, F. Fin from Anuncios where Tag = " + tag
+sql.AselectD="select Titulo, Propietario, Destinatarios, Cuerpo, Fase, Tag, F. Comienzo, F. Fin from Anuncios where Destinatarios = " + destinatario
+sql.AselectP="select Id,Titulo, Destinatarios, Cuerpo, Fase, Tag, F. Comienzo, F. Fin from Anuncios where Propietario = " + propietario
+
+
+#delete anuncio
+sql.Adelete="delete from Anuncios where id=?"
+
+#save usuario
+sql.Usave="insert into Usuarios (nombre,apellidos,email,f. nacimiento,tags) values(?,?,?,?,?)"
+
+#update usuario
+sql.Uupdate="update Usuarios set nombre=?,apellidos=?,f. nacimiento=?,tags=? where email=?"
+
+#select usuario
+sql.Uselect="select nombre, apellidos, f. nacimiento, tags from Usuarios where email = " + email
+
+#delete usuario
+sql.Udelete="delete from Usuarios where email=?"
+
+
+
