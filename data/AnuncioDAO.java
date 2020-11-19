@@ -3,37 +3,35 @@ package ejercicio1;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.DriverManager;
 import java.util.Properties;
 
-/**
- * 
- * @author Jose Manuel Porras, Juan Valverde
- * clase AnuncioDao
- *
- */
+// Ser铆a recomendable tener una clase DAO que guardara los m茅todos comunes (p.ej. getConnection()) y 
+// de la que heredase esta clase y el resto de DAOs
 public class AnuncioDAO {
 	
 	
-	private static String Asave, Aupdate, AselectI,AselectF,AselectT,AselectP,AselectD, Adelete;
+	private static String Asave, Aupdate,Acount, Aselect, Adelete;
 	AnuncioDAO()
 	{
 		Properties sql = new Properties();
 		
 		try {
-			FileInputStream is = new FileInputStream("C:\\Users\\usuario\\Desktop\\recuperado\\pw-juanvs00-patch-1\\config.properties.txt");
+			FileInputStream is = new FileInputStream("C:\\Users\\juan1\\eclipse-workspace\\practica1\\src\\ejercicio2\\sql.properties.txt");
 			sql.load(is);
 		} catch(IOException e) {
 			System.out.println(e.toString());
 		}
-		Asave = sql.getProperty("sql.Usave");
-		Aupdate = sql.getProperty("sql.Uupdate");
-		AselectI = sql.getProperty("sql.UselectI");
-		AselectF = sql.getProperty("sql.UselectF");
-		AselectT = sql.getProperty("sql.UselectT");
-		AselectP = sql.getProperty("sql.UselectP");
-		AselectD = sql.getProperty("sql.UselectD");
-		Adelete = sql.getProperty("sql.Udelete");
+		Asave = sql.getProperty("sql.Asave");
+		Aupdate = sql.getProperty("sql.Aupdate");
+		Acount = sql.getProperty("sql.Acount");
+		Aselect = sql.getProperty("sql.Aselect");
+		Adelete = sql.getProperty("sql.Adelete");
 	}
 	
 	
@@ -45,8 +43,7 @@ public class AnuncioDAO {
 	Connection con=null;
 	try {
 	  Class.forName("com.mysql.jdbc.Driver");
-	  // Introducir correctamente el nombre y datos de conexi贸n - Idealmente, estos datos se 
-	  // indican en un fichero de propiedades
+	  
 	  con= DriverManager.getConnection("jdbc:mysql://" + Main.server + ":" + Main.puerto + "/" + Main.usuario,Main.usuario,Main.pass);
 	// Importante capturar 
 	} catch(Exception e) {
@@ -104,6 +101,16 @@ public static int update(Anuncio anuncio){
 	}catch(Exception e){System.out.println(e);}
 	return status;
 }
+	
+public static int count(){
+	int cont=0;
+	try{
+		Connection con=getConnection();
+		PreparedStatement ps=con.prepareStatement(Acount);
+		cont=ps.executeUpdate();
+	}catch(Exception e){System.out.println(e);}
+	return cont;
+}	
 
 // Para la consulta, se ha tomado una estructura Hash (columna-tabla, valor)
 public static Anuncio queryById (int id) {
@@ -113,187 +120,17 @@ public static Anuncio queryById (int id) {
 		Connection con=getConnection();
 		// En consultas, se hace uso de un Statement 
 		stmt = con.createStatement();
-	    ResultSet rs = stmt.executeQuery(AselectI);
+	    ResultSet rs = stmt.executeQuery(Aselect);
 	    while (rs.next()) {
-	    	String titulo = rs.getString("Titulo");
-	        String propietario = rs.getString("Propietario");
-	        String destinatario = rs.getString("Destinatarios");
-         	String cuerpo = rs.getString("Cuerpo");
-         	String fase = rs.getString("Fase");
-         	String tag = rs.getString("Tags");
-         	String fcom = rs.getString("F. Comienzo");
-         	String ffin = rs.getString("F. Fin");
-
-	        aux = new Anuncio();
-	        aux.setId(id);
-	        aux.setTitulo(titulo);
-	        aux.setPropietario(propietario);
-	        aux.setDestinatario(destinatario);
-	        aux.setCuerpo(cuerpo);
-	        aux.setFase(fase);
-	        aux.setTag(tag);
-	        aux.setFechaComienzo(fcom);
-	        aux.setFechaFin(ffin);
-          	
-	        System.out.println(id + "\n" + titulo +
-	                               "\n" + propietario + "\n" + destinatario + "\n" + cuerpo + "\n" + fase + "\n" + tag + "\n" + fcom + "\n" + ffin + "\n\n");
-	    }
-	    // Se debe tener precauci贸n con cerrar las conexiones, uso de auto-commit, etc.
-	    if (stmt != null) 
-	    	System.out.println("No se ha encontrado ning鷑 anuncio");
-	    	stmt.close(); 
-	} catch (Exception e) {
-		System.out.println(e);
-	} 
-	return aux;
-}
-
-public static Anuncio queryByFecha (String ffin) {
-	Statement stmt = null; 
-	Anuncio aux = null;
-	try {
-		Connection con=getConnection();
-		// En consultas, se hace uso de un Statement 
-		stmt = con.createStatement();
-	    ResultSet rs = stmt.executeQuery(AselectF);
-	    while (rs.next()) {
-	    	int id= rs.getInt("id")
 	    	String titulo = rs.getString("titulo");
 	        String propietario = rs.getString("propietario");
 	        String destinatario = rs.getString("destinatario");
          	String cuerpo = rs.getString("cuerpo");
          	String fase = rs.getString("fase");
          	String tag = rs.getString("tag");
-         	String fcom = rs.getString("fcom");
-         	
-	        aux = new Anuncio();
-	        aux.setId(id);
-	        aux.setTitulo(titulo);
-	        aux.setPropietario(propietario);
-	        aux.setDestinatario(destinatario);
-	        aux.setCuerpo(cuerpo);
-	        aux.setFase(fase);
-	        aux.setTag(tag);
-	        aux.setFechaComienzo(fcom);
-	        aux.setFechaFin(ffin);
-          	
-	        System.out.println(id + "\n" + titulo +
-	                               "\n" + propietario + "\n" + destinatario + "\n" + cuerpo + "\n" + fase + "\n" + tag + "\n" + fcom + "\n" + ffin + "\n\n");
-	    }
-	    // Se debe tener precauci贸n con cerrar las conexiones, uso de auto-commit, etc.
-	    if (stmt != null) 
-	    	System.out.println("No se ha encontrado ning鷑 anuncio");
-	    	stmt.close(); 
-	} catch (Exception e) {
-		System.out.println(e);
-	} 
-	return aux;
-} 
-
-public static Anuncio queryByTag (int tag) {
-	Statement stmt = null; 
-	Anuncio aux = null;
-	try {
-		Connection con=getConnection();
-		// En consultas, se hace uso de un Statement 
-		stmt = con.createStatement();
-	    ResultSet rs = stmt.executeQuery(AselectT);
-	    while (rs.next()) {
-	    	int id= rs.getInt("id")
-	    	String titulo = rs.getString("titulo");
-	        String propietario = rs.getString("propietario");
-	        String destinatario = rs.getString("destinatario");
-         	String cuerpo = rs.getString("cuerpo");
-         	String fase = rs.getString("fase");
-         	String fcom = rs.getString("fcom");
-         	enum tags= rs.getEnum("tags");
-         	
-	        aux = new Anuncio();
-	        aux.setId(id);
-	        aux.setTitulo(titulo);
-	        aux.setPropietario(propietario);
-	        aux.setDestinatario(destinatario);
-	        aux.setCuerpo(cuerpo);
-	        aux.setFase(fase);
-	        aux.setTag(tags);
-	        aux.setFechaComienzo(fcom);
-	        aux.setFechaFin(ffin);
-          	
-	        System.out.println(id + "\n" + titulo +
-	                               "\n" + propietario + "\n" + destinatario + "\n" + cuerpo + "\n" + fase + "\n" + tag + "\n" + fcom + "\n" + ffin + "\n\n");
-	    }
-	    // Se debe tener precauci贸n con cerrar las conexiones, uso de auto-commit, etc.
-	    if (stmt != null) 
-	    	System.out.println("No se ha encontrado ning鷑 anuncio");
-	    	stmt.close(); 
-	} catch (Exception e) {
-		System.out.println(e);
-	} 
-	return aux;
-} 
-
-
-public static Anuncio queryByPropietario (String propietario) {
-	Statement stmt = null; 
-	Anuncio aux = null;
-	try {
-		Connection con=getConnection();
-		// En consultas, se hace uso de un Statement 
-		stmt = con.createStatement();
-	    ResultSet rs = stmt.executeQuery(AselectP);
-	    while (rs.next()) {
-	    	int id= rs.getInt("id")
-	    	String titulo = rs.getString("titulo");
-	        String destinatario = rs.getString("destinatarios");
-         	String cuerpo = rs.getString("cuerpo");
-         	String fase = rs.getString("fase");
-         	String tag = rs.getString("tag");
-         	String fcom = rs.getString("fcom");
-         	String fcom = rs.getString("ffin");
-         	
-	        aux = new Anuncio();
-	        aux.setId(id);
-	        aux.setTitulo(titulo);
-	        aux.setPropietario(propietario);
-	        aux.setDestinatario(destinatario);
-	        aux.setCuerpo(cuerpo);
-	        aux.setFase(fase);
-	        aux.setTag(tag);
-	        aux.setFechaComienzo(fcom);
-	        aux.setFechaFin(ffin);
-          	
-	        System.out.println(id + "\n" + titulo +
-	                               "\n" + propietario + "\n" + destinatario + "\n" + cuerpo + "\n" + fase + "\n" + tag + "\n" + fcom + "\n" + ffin + "\n\n");
-	    }
-	    // Se debe tener precauci贸n con cerrar las conexiones, uso de auto-commit, etc.
-	    if (stmt != null) 
-	    	System.out.println("No se ha encontrado ning鷑 anuncio");
-	    	stmt.close(); 
-	} catch (Exception e) {
-		System.out.println(e);
-	} 
-	return aux;
-} 
-
-public static Anuncio queryByDestinatario (String destinatario) {
-	Statement stmt = null; 
-	Anuncio aux = null;
-	try {
-		Connection con=getConnection();
-		// En consultas, se hace uso de un Statement 
-		stmt = con.createStatement();
-	    ResultSet rs = stmt.executeQuery(AselectD);
-	    while (rs.next()) {
-	    	int id= rs.getInt("id")
-	    	String titulo = rs.getString("titulo");
-	        String propietario = rs.getString("propietario");
-	        String destinatario = rs.getString("destinatarios");
-         	String cuerpo = rs.getString("cuerpo");
-         	String fase = rs.getString("fase");
-         	enum tags = rs.getEnum("tags");
          	String fcom = rs.getString("fcom");
          	String ffin = rs.getString("ffin");
-         	
+
 	        aux = new Anuncio();
 	        aux.setId(id);
 	        aux.setTitulo(titulo);
@@ -310,7 +147,6 @@ public static Anuncio queryByDestinatario (String destinatario) {
 	    }
 	    // Se debe tener precauci贸n con cerrar las conexiones, uso de auto-commit, etc.
 	    if (stmt != null) 
-	    	System.out.println("No se ha encontrado ning鷑 anuncio");
 	    	stmt.close(); 
 	} catch (Exception e) {
 		System.out.println(e);
