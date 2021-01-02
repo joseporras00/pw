@@ -1,3 +1,0 @@
-git remote add origin https://github.com/joseporras00/pw.git
-git branch -M main
-git push -u origin main

@@ -11,7 +11,7 @@ import java.util.Properties;
 public class AnuncioDAO {
 	
 	
-	private static String Asave, Aupdate, Aselect, Adelete;
+	private static String Asave, Aupdate,Acount, Aselect, Adelete;
 	AnuncioDAO()
 	{
 		Properties sql = new Properties();
@@ -39,7 +39,7 @@ public class AnuncioDAO {
 	  Class.forName("com.mysql.jdbc.Driver");
 	  // Introducir correctamente el nombre y datos de conexión - Idealmente, estos datos se 
 	  // indican en un fichero de propiedades
-	  con= DriverManager.getConnection("jdbc:mysql://oraclepr.uco.es:3306/basedatos",Main.usuario,Main.pass);
+	  con= DriverManager.getConnection("jdbc:mysql://" + Main.server + ":" + Main.puerto + "/" + Main.usuario,Main.usuario,Main.pass,Main.usuario,Main.pass);
 	// Importante capturar 
 	} catch(Exception e) {
 	  System.out.println(e);
@@ -96,6 +96,16 @@ public static int update(Anuncio anuncio){
 	}catch(Exception e){System.out.println(e);}
 	return status;
 }
+	
+public static int count(){
+	int cont=0;
+	try{
+		Connection con=getConnection();
+		PreparedStatement ps=con.prepareStatement(Acount);
+		count=ps.executeUpdate();
+	}catch(Exception e){System.out.println(e);}
+	return cont;
+}	
 
 // Para la consulta, se ha tomado una estructura Hash (columna-tabla, valor)
 public static Anuncio queryById (int id) {

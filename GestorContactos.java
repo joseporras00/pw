@@ -1,4 +1,4 @@
-package ejercicio2;
+package ejercicio1;
 
 import java.util.Scanner;
 
@@ -7,14 +7,12 @@ public class GestorContactos {
 	private static GestorContactos instancia = null;
 	
 	public int x;
-	private String matriz[][];
-	
-	private Ficheros fichero = new Ficheros();
+
 	Scanner s = new Scanner(System.in);
 	
+	
 	public GestorContactos() {
-		matriz = new String[25][5]; //El valor de filas de esta matriz es el numero máx de contactos que admite el programa
-		x = fichero.leerFichero(matriz); //Con este se inicializa la x y la matriz
+		x=0;
 	}
 		
 	public static GestorContactos getGestorContactos() {
@@ -24,32 +22,22 @@ public class GestorContactos {
 		return instancia;
 	}
 		
-	// Operaciones públicas de la clase GestorContactos
+	// Operaciones pÃºblicas de la clase GestorContactos
 	public boolean comprobarUsuario(String email)
-	{
-		for(int i=0;i<x;i++) {
-			if(matriz[i][2].equals(email))
-				return true;
-		}
-		
-		return false;
-		
+	{		
+		Contacto aux = UserDAO.queryByEmail(email);
+
+		if(aux!=null)
+			return true;
+		else
+			return false;
 	}
 	
 	public String imprimeNombre(String email) {
 		
-		int x=fichero.leerFichero(matriz);
-		String output = null;
+		Contacto aux = UserDAO.queryByEmail(email);
 		
-		for(int i=0; i<x;i++)
-		{	
-			if(matriz[i][2].equals(email))
-			{
-				output = matriz[i][0] + " " + matriz[i][1];
-			}
-		}
-		
-		return output;
+		return aux.getNombre() + aux.getApellidos();
 	}
 	
 }

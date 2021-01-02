@@ -1,0 +1,11 @@
+#Servidor
+conf.servidor=http://oraclepr.uco.es/
+
+#puerto
+conf.puerto=8080
+
+#usuario
+conf.usuario=i82poroj
+
+#password
+conf.pass=pasbd
